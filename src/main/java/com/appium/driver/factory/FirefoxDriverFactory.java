@@ -11,13 +11,6 @@ public class FirefoxDriverFactory extends DriverFactory<FirefoxOptions> {
     private static boolean setupOnce = true;
 
     private FirefoxDriverFactory() {
-        /* Automatically downloads the relevant Firefox driver if the SETUP is set to true.
-         * Only do this once per test execution. */
-        if (setupOnce && SETUP) {
-            WebDriverManager.firefoxdriver().setup();
-            setupOnce = false;
-        }
-
         this.optionsBuilder = FirefoxOptionsBuilder.getInstance();
     }
 
@@ -27,6 +20,13 @@ public class FirefoxDriverFactory extends DriverFactory<FirefoxOptions> {
 
     @Override
     public WebDriver create() {
+        /* Automatically downloads the relevant Firefox driver if the SETUP is set to true.
+         * Only do this once per test execution. */
+        if (setupOnce && SETUP) {
+            WebDriverManager.firefoxdriver().setup();
+            setupOnce = false;
+        }
+
         return new FirefoxDriver(this.optionsBuilder.build());
     }
 }

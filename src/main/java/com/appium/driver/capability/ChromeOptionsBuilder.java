@@ -62,7 +62,7 @@ public class ChromeOptionsBuilder implements CapabilityBuilder<ChromeOptions> {
      * Sets the http proxy.
      * @param host: address of the proxy.  You can include the port in the address.
      */
-    public ChromeOptionsBuilder httpProxy(String host) {
+    public ChromeOptionsBuilder withProxy(String host) {
         Proxy proxy = new Proxy();
         proxy.setHttpProxy(host);
         options.setCapability("proxy", proxy);
@@ -74,9 +74,9 @@ public class ChromeOptionsBuilder implements CapabilityBuilder<ChromeOptions> {
      * @param host: address of the proxy.
      * @param port: proxy port.
      */
-    public ChromeOptionsBuilder httpProxy(String host, int port) {
+    public ChromeOptionsBuilder withProxy(String host, int port) {
         String hostAndPort = host + ":" + port;
-        return httpProxy(hostAndPort);
+        return withProxy(hostAndPort);
     }
 
     /**

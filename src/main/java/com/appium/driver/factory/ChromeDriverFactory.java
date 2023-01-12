@@ -11,13 +11,6 @@ public class ChromeDriverFactory extends DriverFactory<ChromeOptions> {
     private static boolean setupOnce = true;
 
     private ChromeDriverFactory() {
-        /* Automatically downloads the relevant Chrome driver if the SETUP is set to true.
-         * Only do this once per test execution. */
-        if (setupOnce && SETUP) {
-            WebDriverManager.chromedriver().setup();
-            setupOnce = false;
-        }
-
         this.optionsBuilder = ChromeOptionsBuilder.getInstance();
     }
 
@@ -27,6 +20,13 @@ public class ChromeDriverFactory extends DriverFactory<ChromeOptions> {
 
     @Override
     public WebDriver create() {
+        /* Automatically downloads the relevant Chrome driver if the SETUP is set to true.
+         * Only do this once per test execution. */
+        if (setupOnce && SETUP) {
+            WebDriverManager.chromedriver().setup();
+            setupOnce = false;
+        }
+
         return new ChromeDriver(optionsBuilder.build());
     }
 }

@@ -11,13 +11,15 @@ import org.testng.annotations.Test;
 public class DriverBuilderTest {
     @Test
     public void canStartChromeDriver() throws InterruptedException {
+        // This will Download the relevant Chrome Driver
+        ChromeDriverFactory.SETUP = true;
+
         // Determine the browser characteristics
         ChromeOptionsBuilder optionsBuilder =
             ChromeOptionsBuilder
                 .getInstance()
-                //.fullScreen()
+                .fullScreen()
                 .hideScrollbars()
-                .windowSize(800, 600)
                 .disableInfoBars();
 
         // Construct the WebDriver factory
@@ -45,6 +47,9 @@ public class DriverBuilderTest {
 
     @Test
     public void canStartFirefoxDriver() throws InterruptedException {
+        // This will Download the relevant Firefox Driver
+        FirefoxDriverFactory.SETUP = true;
+
         FirefoxOptionsBuilder optionsBuilder =
             FirefoxOptionsBuilder.getInstance();
 
@@ -54,19 +59,11 @@ public class DriverBuilderTest {
         // Create an instance of the WebDriver
         WebDriver withUI = factory.create();
 
-        // Create a second headless instance of the WebDriver
-        WebDriver withoutUI = factory.create();
-
         // Do something with the first WebDriver
         withUI.get("https://google.com");
         Thread.sleep(1000);
 
-        // Do something with the second WebDriver
-        withoutUI.get("https://google.com");
-        Thread.sleep(1000);
-
         // Cleanup
-        withoutUI.quit();
         withUI.quit();
     }
 }
