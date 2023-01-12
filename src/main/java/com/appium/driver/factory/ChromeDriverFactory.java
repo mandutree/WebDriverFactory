@@ -4,32 +4,29 @@ import com.appium.driver.capability.ChromeOptionsBuilder;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
-public class ChromeDriverFactory implements DriverFactory {
-    private static boolean setupOnce = false;
-    private ChromeOptionsBuilder chromeOptionsBuilder;
+public class ChromeDriverFactory extends DriverFactory<ChromeOptions> {
+    public static boolean SETUP = false;
+    private static boolean setupOnce = true;
 
     private ChromeDriverFactory() {
-        // Automatically downloads relevant chromedriver, but only do it once per test execution
-        if (!setupOnce) {
+        /* Automatically downloads the relevant Chrome driver if the SETUP is set to true.
+         * Only do this once per test execution. */
+        if (setupOnce && SETUP) {
             WebDriverManager.chromedriver().setup();
-            setupOnce = true;
+            setupOnce = false;
         }
 
-        this.chromeOptionsBuilder = ChromeOptionsBuilder.getInstance();
+        this.optionsBuilder = ChromeOptionsBuilder.getInstance();
     }
 
     public static ChromeDriverFactory getInstance() {
         return new ChromeDriverFactory();
     }
 
-    public ChromeDriverFactory withCapabilityBuilder(ChromeOptionsBuilder optionsBuilder) {
-        this.chromeOptionsBuilder = optionsBuilder;
-        return this;
-    }
-
     @Override
     public WebDriver create() {
-        return new ChromeDriver(chromeOptionsBuilder.build());
+        return new ChromeDriver(optionsBuilder.build());
     }
 }
