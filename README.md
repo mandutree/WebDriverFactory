@@ -5,7 +5,7 @@ how the code can be structured to simply it's usage.
 
 As of this writing, this project contains working examples of constructing Chrome driver.  It also contains skeleton
 code for Firefox and Android drivers.  To view an example of how the ChromeDriverFactory might work.  See
-DriverBuilderTest.java
+[DriverBuilderTest.java](https://github.com/mandutree/WebDriverFactory/blob/master/src/test/java/com/appium/driver/DriverBuilderTest.java)
 
 ## Downloading ChromeDriver
 Setting the parameter:
@@ -16,8 +16,8 @@ prior to constructing your first ChromeDriver
 
     ChromeDriverFactory.getInstance().create();
 
-will allow the ChromeDriverFactory to connect to the internet to download the chrome
-driver that matches your current version of Chrome.
+will allow the ChromeDriverFactory to connect to the internet to download the chrome driver that matches your current
+version of Chrome.  Under the cover, this utilizes the [WebDriverManager](https://github.com/bonigarcia/webdrivermanager).
 
 ## Setting Options
 Options builder simplifies the configuration by providing descriptive method names, preventing you from having to
